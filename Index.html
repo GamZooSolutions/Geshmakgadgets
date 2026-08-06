@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Karla:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FAF6EE;color:#2B2115;font-family:'Karla',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#7D3038}a:hover{color:#621F26}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column">
+  <header style="position:sticky;top:0;z-index:50;background:rgba(250,246,238,0.95);backdrop-filter:blur(8px);border-bottom:1px solid #E7DCC8">
+    <div style="max-width:1200px;margin:0 auto;padding:0 32px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+      <a href="Home.dc.html" style="font-family:'Instrument Serif',serif;font-size:28px;color:#2B2115;text-decoration:none">Geshmak <span style="color:#7D3038;font-style:italic">Gadgets</span></a>
+      <nav style="display:flex;gap:26px;align-items:center;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">
+        <a href="Home.dc.html" style="color:#7D3038;text-decoration:none;border-bottom:2px solid #B9862F;padding-bottom:2px">Home</a>
+        <a href="Gadgets.dc.html" style="color:#2B2115;text-decoration:none" style-hover="color:#7D3038">Gadgets</a>
+        <a href="Seforim.dc.html" style="color:#2B2115;text-decoration:none" style-hover="color:#7D3038">Seforim</a>
+        <a href="Kids.dc.html" style="color:#2B2115;text-decoration:none" style-hover="color:#7D3038">Kids</a>
+        <a href="Tableware.dc.html" style="color:#2B2115;text-decoration:none" style-hover="color:#7D3038">Tableware</a>
+      </nav>
+    </div>
+  </header>
+  <main style="flex:1">
+    <section style="max-width:840px;margin:0 auto;padding:80px 32px 48px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px">
+      <sc-if value="{{ comingSoon }}" hint-placeholder-val="{{ true }}">
+        <span style="border:1px solid #B9862F;color:#8A6414;font-size:12px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:6px 14px;border-radius:999px">Shop opening soon — for now, we point you to the good stuff</span>
+      </sc-if>
+      <h1 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:64px;line-height:1.05;text-wrap:balance">Gadgets to make your Yiddishkeit <span style="font-style:italic;color:#7D3038">geshmak</span>.</h1>
+      <p style="margin:0;font-size:19px;line-height:1.55;color:#7A6E5C;max-width:560px;text-wrap:pretty">A hand-picked list of products that make Jewish life sweeter, easier, and a bissel more fun — from the Shabbos table to the shtender.</p>
+      <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:center;margin-top:6px">
+        <a href="Gadgets.dc.html" style="background:#7D3038;color:#FFFDF7;padding:13px 26px;border-radius:999px;font-weight:800;font-size:15px;text-decoration:none" style-hover="background:#621F26">Browse the gadgets</a>
+        <a href="#about" style="color:#7D3038;font-weight:700;font-size:15px">What does “geshmak” mean?</a>
+      </div>
+    </section>
+    <section style="max-width:1200px;margin:0 auto;padding:16px 32px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px">
+      <a href="Gadgets.dc.html" style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:16px;padding:26px 24px;text-decoration:none;color:#2B2115;display:flex;flex-direction:column;gap:8px" style-hover="border-color:#B9862F">
+        <span style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#B9862F">10 finds</span>
+        <span style="font-family:'Instrument Serif',serif;font-size:30px">Gadgets</span>
+        <span style="font-size:14.5px;color:#7A6E5C;line-height:1.45">Shtenders, Shabbos lamps, and a lock for the single malt.</span>
+        <span style="margin-top:auto;padding-top:8px;color:#7D3038;font-weight:800;font-size:14px">Browse →</span>
+      </a>
+      <a href="Seforim.dc.html" style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:16px;padding:26px 24px;text-decoration:none;color:#2B2115;display:flex;flex-direction:column;gap:8px" style-hover="border-color:#B9862F">
+        <span style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#B9862F">5 picks</span>
+        <span style="font-family:'Instrument Serif',serif;font-size:30px">Seforim</span>
+        <span style="font-size:14.5px;color:#7A6E5C;line-height:1.45">For the Shabbos table, the shiur, and everywhere in between.</span>
+        <span style="margin-top:auto;padding-top:8px;color:#7D3038;font-weight:800;font-size:14px">Browse →</span>
+      </a>
+      <a href="Kids.dc.html" style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:16px;padding:26px 24px;text-decoration:none;color:#2B2115;display:flex;flex-direction:column;gap:8px" style-hover="border-color:#B9862F">
+        <span style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#B9862F">4 sets</span>
+        <span style="font-family:'Instrument Serif',serif;font-size:30px">Kids</span>
+        <span style="font-size:14.5px;color:#7A6E5C;line-height:1.45">Tannaim, Amoraim, and Eliyahu HaNavi — story by story.</span>
+        <span style="margin-top:auto;padding-top:8px;color:#7D3038;font-weight:800;font-size:14px">Browse →</span>
+      </a>
+      <a href="Tableware.dc.html" style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:16px;padding:26px 24px;text-decoration:none;color:#2B2115;display:flex;flex-direction:column;gap:8px" style-hover="border-color:#B9862F">
+        <span style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#B9862F">3 picks</span>
+        <span style="font-family:'Instrument Serif',serif;font-size:30px">Tableware</span>
+        <span style="font-size:14.5px;color:#7A6E5C;line-height:1.45">From a sterling kiddush cup to 500 little plastic ones.</span>
+        <span style="margin-top:auto;padding-top:8px;color:#7D3038;font-weight:800;font-size:14px">Browse →</span>
+      </a>
+    </section>
+    <section id="about" style="max-width:860px;margin:0 auto;padding:48px 32px">
+      <div style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:20px;padding:40px 44px;display:grid;grid-template-columns:1fr 1.4fr;gap:36px;align-items:center">
+        <div>
+          <div style="font-family:'Instrument Serif',serif;font-size:38px;line-height:1.1">gesh·mak</div>
+          <div style="font-size:14px;color:#7A6E5C;font-style:italic;margin-top:6px">adjective · Yiddish · געשמאַק</div>
+          <div style="font-size:15.5px;margin-top:12px;line-height:1.5">Delicious. Delightful. Deeply satisfying — like kugel straight off the platta.</div>
+        </div>
+        <p style="margin:0;font-size:15.5px;line-height:1.65;color:#7A6E5C;text-wrap:pretty">Some things just make Jewish life <em>work better</em>: the shtender that folds into your pocket, the cover that keeps the cholent hot, the lock that keeps the wine kosher. We collect them here, one geshmak find at a time. Every button links straight to the seller — we do the picking, they do the selling.</p>
+      </div>
+    </section>
+    <sc-if value="{{ showSignup }}" hint-placeholder-val="{{ true }}">
+      <section id="signup" style="background:#7D3038;margin-top:24px">
+        <div style="max-width:640px;margin:0 auto;padding:56px 32px;text-align:center;color:#FFFDF7;display:flex;flex-direction:column;align-items:center;gap:14px">
+          <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:38px">The shop is coming, IY”H.</h2>
+          <p style="margin:0;font-size:16px;line-height:1.5;color:#EBD9CE;max-width:440px">Leave your email and be the first to know when Geshmak Gadgets starts selling for real.</p>
+          <sc-if value="{{ notDone }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:6px">
+              <input type="email" placeholder="you@example.com" value="{{ email }}" onChange="{{ onEmail }}" style="width:280px;padding:12px 18px;border-radius:999px;border:1px solid #A05B60;background:#FFFDF7;color:#2B2115;font-family:'Karla',sans-serif;font-size:15px;outline:none">
+              <button onClick="{{ onSubmit }}" style="background:#B9862F;color:#FFFDF7;border:none;padding:12px 24px;border-radius:999px;font-family:'Karla',sans-serif;font-weight:800;font-size:15px;cursor:pointer" style-hover="background:#9C7023">Keep me posted</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ done }}" hint-placeholder-val="{{ false }}">
+            <div style="border:1px solid #B9862F;border-radius:999px;padding:12px 26px;font-weight:800;font-size:15px;margin-top:6px">You’re on the list — a sheynem dank!</div>
+          </sc-if>
+        </div>
+      </section>
+    </sc-if>
+  </main>
+  <footer style="border-top:1px solid #E7DCC8">
+    <div style="max-width:1200px;margin:0 auto;padding:24px 32px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:#7A6E5C">
+      <span>© Geshmak Gadgets — we do the picking, the sellers do the selling.</span>
+      <span>Prices are approximate. Geshmak is guaranteed.</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;comingSoon&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Header&quot;},&quot;showSignup&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
+class Component extends DCLogic {
+  state = { email: '', done: false };
+  renderVals() {
+    return {
+      comingSoon: this.props.comingSoon ?? true,
+      showSignup: this.props.showSignup ?? true,
+      email: this.state.email,
+      done: this.state.done,
+      notDone: !this.state.done,
+      onEmail: (e) => this.setState({ email: e.target.value }),
+      onSubmit: () => { if (this.state.email.trim()) this.setState({ done: true }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Karla:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="image-slot.js"></script>
+<style>
+body{margin:0;background:#FAF6EE;color:#2B2115;font-family:'Karla',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#7D3038}a:hover{color:#621F26}
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;flex-direction:column">
+  <header style="position:sticky;top:0;z-index:50;background:rgba(250,246,238,0.95);backdrop-filter:blur(8px);border-bottom:1px solid #E7DCC8">
+    <div style="max-width:1200px;margin:0 auto;padding:0 32px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+      <a href="Home.dc.html" style="font-family:'Instrument Serif',serif;font-size:28px;color:#2B2115;text-decoration:none">Geshmak <span style="color:#7D3038;font-style:italic">Gadgets</span></a>
+      <nav style="display:flex;gap:26px;align-items:center;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">
+        <a href="Home.dc.html" style="color:#2B2115;text-decoration:none" style-hover="color:#7D3038">Home</a>
+        <a href="Gadgets.dc.html" style="color:#2B2115;text-decoration:none" style-hover="color:#7D3038">Gadgets</a>
+        <a href="Seforim.dc.html" style="color:#2B2115;text-decoration:none" style-hover="color:#7D3038">Seforim</a>
+        <a href="Kids.dc.html" style="color:#7D3038;text-decoration:none;border-bottom:2px solid #B9862F;padding-bottom:2px">Kids</a>
+        <a href="Tableware.dc.html" style="color:#2B2115;text-decoration:none" style-hover="color:#7D3038">Tableware</a>
+      </nav>
+    </div>
+  </header>
+  <main style="flex:1">
+    <div style="max-width:1200px;margin:0 auto;padding:56px 32px 8px">
+      <div style="font-size:12px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#B9862F">The list · 4 sets</div>
+      <h1 style="margin:10px 0 8px;font-family:'Instrument Serif',serif;font-weight:400;font-size:52px">Kids</h1>
+      <p style="margin:0;font-size:17px;line-height:1.55;color:#7A6E5C;max-width:580px;text-wrap:pretty">Sets and stories that turn Tannaim, Amoraim, and Eliyahu HaNavi into household names.</p>
+    </div>
+    <div style="max-width:1200px;margin:0 auto;padding:32px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px">
+      <div style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:16px;overflow:hidden;display:flex;flex-direction:column">
+        <div style="height:220px;border-bottom:1px solid #E7DCC8"><image-slot id="gg-tannaim-series" placeholder="Tannaim series set photo"></image-slot></div>
+        <div style="padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1">
+          <span style="align-self:flex-start;background:#F3E7CB;color:#8A6414;font-size:11.5px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px">Meet the Tannaim</span>
+          <h3 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:23px;line-height:1.15">Tannaim Series — Complete Set</h3>
+          <p style="margin:0;font-size:15px;line-height:1.5;color:#7A6E5C;text-wrap:pretty">The giants of the Mishnah, story by story — bedtime reading that builds a mesorah.</p>
+          <div style="margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between">
+            <span style="font-weight:800;font-size:16px">~$180</span>
+            <a href="https://feldheim.com/tannaim-series+edition-Complete~Set" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:#7D3038;color:#FFFDF7;padding:9px 18px;border-radius:999px;font-weight:800;font-size:13px;text-decoration:none" style-hover="background:#621F26">Get it ↗</a>
+          </div>
+        </div>
+      </div>
+      <div style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:16px;overflow:hidden;display:flex;flex-direction:column">
+        <div style="height:220px;border-bottom:1px solid #E7DCC8"><image-slot id="gg-amoraim-series" placeholder="Amoraim series set photo"></image-slot></div>
+        <div style="padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1">
+          <span style="align-self:flex-start;background:#F3E7CB;color:#8A6414;font-size:11.5px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px">Meet the Amoraim</span>
+          <h3 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:23px;line-height:1.15">Amoraim Series — 21 Volumes</h3>
+          <p style="margin:0;font-size:15px;line-height:1.5;color:#7A6E5C;text-wrap:pretty">Twenty-one volumes on the sages of the Gemara. The shelf that keeps on giving.</p>
+          <div style="margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between">
+            <span style="font-weight:800;font-size:16px">~$200</span>
+            <a href="https://feldheim.com/amoraim-series+edition-21~Volume~Set" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:#7D3038;color:#FFFDF7;padding:9px 18px;border-radius:999px;font-weight:800;font-size:13px;text-decoration:none" style-hover="background:#621F26">Get it ↗</a>
+          </div>
+        </div>
+      </div>
+      <div style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:16px;overflow:hidden;display:flex;flex-direction:column">
+        <div style="height:220px;border-bottom:1px solid #E7DCC8"><image-slot id="gg-eliyahu-stories" placeholder="Eliyahu HaNavi set photo"></image-slot></div>
+        <div style="padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1">
+          <span style="align-self:flex-start;background:#F3E7CB;color:#8A6414;font-size:11.5px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px">Wonder stories</span>
+          <h3 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:23px;line-height:1.15">Amazing Stories of Eliyahu HaNavi</h3>
+          <p style="margin:0;font-size:15px;line-height:1.5;color:#7A6E5C;text-wrap:pretty">A four-volume set of Eliyahu HaNavi stories — wonder after wonder.</p>
+          <div style="margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between">
+            <span style="font-weight:800;font-size:16px">~$60</span>
+            <a href="https://feldheim.com/amazing-stories-of-eliyahu-hanavi+edition-Amazing~Stories~of~Eliyahu~HaNavi,~4~Volume~Set" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:#7D3038;color:#FFFDF7;padding:9px 18px;border-radius:999px;font-weight:800;font-size:13px;text-decoration:none" style-hover="background:#621F26">Get it ↗</a>
+          </div>
+        </div>
+      </div>
+      <div style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:16px;overflow:hidden;display:flex;flex-direction:column">
+        <div style="height:220px;border-bottom:1px solid #E7DCC8"><image-slot id="gg-churban-kids" placeholder="The Churban cover"></image-slot></div>
+        <div style="padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1">
+          <span style="align-self:flex-start;background:#F3E7CB;color:#8A6414;font-size:11.5px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px">Tisha B’Av</span>
+          <h3 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:23px;line-height:1.15">The Churban</h3>
+          <p style="margin:0;font-size:15px;line-height:1.5;color:#7A6E5C;text-wrap:pretty">The story of the Churban, told so children can truly understand the day.</p>
+          <div style="margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between">
+            <span style="font-weight:800;font-size:16px">~$25</span>
+            <a href="https://feldheim.com/the-churban" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:#7D3038;color:#FFFDF7;padding:9px 18px;border-radius:999px;font-weight:800;font-size:13px;text-decoration:none" style-hover="background:#621F26">Get it ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer style="border-top:1px solid #E7DCC8;margin-top:32px">
+    <div style="max-width:1200px;margin:0 auto;padding:24px 32px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:#7A6E5C">
+      <span>© Geshmak Gadgets — we do the picking, the sellers do the selling.</span>
+      <a href="Home.dc.html" style="color:#7D3038;font-weight:700">The shop is coming, IY”H — join the list →</a>
+    </div>
+  </footer>
+</div>
+</x-dc>
+</body>
+</html>
