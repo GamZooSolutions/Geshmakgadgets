@@ -84,8 +84,11 @@ a{color:#7D3038}a:hover{color:#621F26}
           <sc-if value="{{ notDone }}" hint-placeholder-val="{{ true }}">
             <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:6px">
               <input type="email" placeholder="you@example.com" value="{{ email }}" onChange="{{ onEmail }}" style="width:280px;padding:12px 18px;border-radius:999px;border:1px solid #A05B60;background:#FFFDF7;color:#2B2115;font-family:'Karla',sans-serif;font-size:15px;outline:none">
-              <button onClick="{{ onSubmit }}" style="background:#B9862F;color:#FFFDF7;border:none;padding:12px 24px;border-radius:999px;font-family:'Karla',sans-serif;font-weight:800;font-size:15px;cursor:pointer" style-hover="background:#9C7023">Keep me posted</button>
+              <button onClick="{{ onSubmit }}" style="background:#B9862F;color:#FFFDF7;border:none;padding:12px 24px;border-radius:999px;font-family:'Karla',sans-serif;font-weight:800;font-size:15px;cursor:pointer" style-hover="background:#9C7023">{{ btnLabel }}</button>
             </div>
+            <sc-if value="{{ hasEmailErr }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:14px;font-weight:700;color:#FFE3DC">{{ emailErr }}</div>
+            </sc-if>
           </sc-if>
           <sc-if value="{{ done }}" hint-placeholder-val="{{ false }}">
             <div style="border:1px solid #B9862F;border-radius:999px;padding:12px 26px;font-weight:800;font-size:15px;margin-top:6px">You’re on the list — a sheynem dank!</div>
@@ -122,8 +125,19 @@ class Component extends DCLogic {
       email: this.state.email,
       done: this.state.done,
       notDone: !this.state.done,
-      onEmail: (e) => this.setState({ email: e.target.value }),
-      onSubmit: () => { if (this.state.email.trim()) this.setState({ done: true }); }
+      onEmail: (e) => this.setState({ email: e.target.value, emailErr: '' }),
+      hasEmailErr: !!this.state.emailErr, emailErr: this.state.emailErr || '',
+      btnLabel: this.state.sending ? 'Sending…' : 'Keep me posted',
+      onSubmit: () => {
+        const email = this.state.email.trim();
+        if (this.state.sending) return;
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return this.setState({ emailErr: 'Please enter a valid email address.' });
+        this.setState({ sending: true });
+        fetch('https://script.google.com/macros/s/AKfycbzIh5lYRt4OUbCeC4Rw0qzdtg-RtZoFnFAne8q17GX7BBh0DNGffEc6hMb1Up3bJpQxqQ/exec', {
+          method: 'POST', mode: 'no-cors', body: new URLSearchParams({ email })
+        }).then(() => this.setState({ done: true, sending: false }))
+          .catch(() => this.setState({ sending: false, emailErr: 'Something went wrong. Please try again.' }));
+      }
     };
   }
 }
