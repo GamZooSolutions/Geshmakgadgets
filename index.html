@@ -42,25 +42,25 @@ a{color:#7D3038}a:hover{color:#621F26}
     </section>
     <section style="max-width:1200px;margin:0 auto;padding:16px 32px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px">
       <a href="Gadgets.dc.html" style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:16px;padding:26px 24px;text-decoration:none;color:#2B2115;display:flex;flex-direction:column;gap:8px" style-hover="border-color:#B9862F">
-        <span style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#B9862F">10 finds</span>
+        <span style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#B9862F">{{ countGadgets }}</span>
         <span style="font-family:'Instrument Serif',serif;font-size:30px">Gadgets</span>
         <span style="font-size:14.5px;color:#7A6E5C;line-height:1.45">Shtenders, Shabbos lamps, and a lock for the single malt.</span>
         <span style="margin-top:auto;padding-top:8px;color:#7D3038;font-weight:800;font-size:14px">Browse →</span>
       </a>
       <a href="Seforim.dc.html" style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:16px;padding:26px 24px;text-decoration:none;color:#2B2115;display:flex;flex-direction:column;gap:8px" style-hover="border-color:#B9862F">
-        <span style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#B9862F">5 picks</span>
+        <span style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#B9862F">{{ countSeforim }}</span>
         <span style="font-family:'Instrument Serif',serif;font-size:30px">Seforim</span>
         <span style="font-size:14.5px;color:#7A6E5C;line-height:1.45">For the Shabbos table, the shiur, and everywhere in between.</span>
         <span style="margin-top:auto;padding-top:8px;color:#7D3038;font-weight:800;font-size:14px">Browse →</span>
       </a>
       <a href="Kids.dc.html" style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:16px;padding:26px 24px;text-decoration:none;color:#2B2115;display:flex;flex-direction:column;gap:8px" style-hover="border-color:#B9862F">
-        <span style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#B9862F">4 sets</span>
+        <span style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#B9862F">{{ countKids }}</span>
         <span style="font-family:'Instrument Serif',serif;font-size:30px">Kids</span>
         <span style="font-size:14.5px;color:#7A6E5C;line-height:1.45">Tannaim, Amoraim, and Eliyahu HaNavi — story by story.</span>
         <span style="margin-top:auto;padding-top:8px;color:#7D3038;font-weight:800;font-size:14px">Browse →</span>
       </a>
       <a href="Tableware.dc.html" style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:16px;padding:26px 24px;text-decoration:none;color:#2B2115;display:flex;flex-direction:column;gap:8px" style-hover="border-color:#B9862F">
-        <span style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#B9862F">3 picks</span>
+        <span style="font-size:11.5px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:#B9862F">{{ countTableware }}</span>
         <span style="font-family:'Instrument Serif',serif;font-size:30px">Tableware</span>
         <span style="font-size:14.5px;color:#7A6E5C;line-height:1.45">From a sterling kiddush cup to 500 little plastic ones.</span>
         <span style="margin-top:auto;padding-top:8px;color:#7D3038;font-weight:800;font-size:14px">Browse →</span>
@@ -105,9 +105,18 @@ a{color:#7D3038}a:hover{color:#621F26}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;comingSoon&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Header&quot;},&quot;showSignup&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
 class Component extends DCLogic {
-  state = { email: '', done: false };
+  state = { email: '', done: false, counts: null };
+  componentDidMount() {
+    fetch('products.json', { cache: 'no-store' }).then(r => r.json()).then(all => {
+      const counts = {}; all.forEach(p => { counts[p.category] = (counts[p.category] || 0) + 1; });
+      this.setState({ counts });
+    }).catch(() => {});
+  }
   renderVals() {
+    const c = this.state.counts || {};
+    const lbl = k => this.state.counts ? (c[k] || 0) + ((c[k] || 0) === 1 ? ' pick' : ' picks') : '';
     return {
+      countGadgets: lbl('Gadgets'), countSeforim: lbl('Seforim'), countKids: lbl('Kids'), countTableware: lbl('Tableware'),
       comingSoon: this.props.comingSoon ?? true,
       showSignup: this.props.showSignup ?? true,
       email: this.state.email,

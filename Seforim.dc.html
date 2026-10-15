@@ -10,7 +10,6 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Karla:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="image-slot.js"></script>
 <style>
 body{margin:0;background:#FAF6EE;color:#2B2115;font-family:'Karla',sans-serif;-webkit-font-smoothing:antialiased}
 a{color:#7D3038}a:hover{color:#621F26}
@@ -31,72 +30,33 @@ a{color:#7D3038}a:hover{color:#621F26}
   </header>
   <main style="flex:1">
     <div style="max-width:1200px;margin:0 auto;padding:56px 32px 8px">
-      <div style="font-size:12px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#B9862F">The list · 5 picks</div>
+      <div style="font-size:12px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:#B9862F">{{ countLabel }}</div>
       <h1 style="margin:10px 0 8px;font-family:'Instrument Serif',serif;font-weight:400;font-size:52px">Seforim</h1>
       <p style="margin:0;font-size:17px;line-height:1.55;color:#7A6E5C;max-width:580px;text-wrap:pretty">Books that keep the Shabbos table talking and the shteig going strong.</p>
     </div>
     <div style="max-width:1200px;margin:0 auto;padding:32px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px">
-      <div style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:16px;overflow:hidden;display:flex;flex-direction:column">
-        <div style="height:220px;border-bottom:1px solid #E7DCC8"><image-slot id="gg-achas-shaalti" src="gg-achas-shaalti.webp" placeholder="Achas Sha'alti covers"></image-slot></div>
-        <div style="padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1">
-          <span style="align-self:flex-start;background:#F3E7CB;color:#8A6414;font-size:11.5px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px">Table talk</span>
-          <h3 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:23px;line-height:1.15">Achas Sha’alti, Vols. 1–4</h3>
-          <p style="margin:0;font-size:15px;line-height:1.5;color:#7A6E5C;text-wrap:pretty">Halachic riddles that keep the Friday-night table talking well past dessert.</p>
-          <div style="margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between">
-            <span style="font-weight:800;font-size:16px">~$28 / vol.</span>
-            <a href="https://feldheim.com/achas-sha-alti-series+edition-Volume~1" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:#7D3038;color:#FFFDF7;padding:9px 18px;border-radius:999px;font-weight:800;font-size:13px;text-decoration:none" style-hover="background:#621F26">Get it ↗</a>
+      <sc-for list="{{ products }}" as="p" hint-placeholder-count="6">
+        <div style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:16px;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:220px;border-bottom:1px solid #E7DCC8;background:#FFFFFF;overflow:hidden">
+            <img src="{{ p.image }}" alt="{{ p.name }}" loading="lazy" style="width:100%;height:100%;object-fit:{{ p.fit }};display:block">
+          </div>
+          <div style="padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1">
+            <sc-if value="{{ p.hasBadge }}" hint-placeholder-val="{{ true }}">
+              <span style="align-self:flex-start;background:#F3E7CB;color:#8A6414;font-size:11.5px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px">{{ p.badge }}</span>
+            </sc-if>
+            <h3 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:23px;line-height:1.15">{{ p.name }}</h3>
+            <p style="margin:0;font-size:15px;line-height:1.5;color:#7A6E5C;text-wrap:pretty">{{ p.blurb }}</p>
+            <div style="margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+              <span style="font-weight:800;font-size:16px">{{ p.price }}</span>
+              <a href="{{ p.link }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:#7D3038;color:#FFFDF7;padding:9px 18px;border-radius:999px;font-weight:800;font-size:13px;text-decoration:none" style-hover="background:#621F26">Get it ↗</a>
+            </div>
           </div>
         </div>
-      </div>
-      <div style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:16px;overflow:hidden;display:flex;flex-direction:column">
-        <div style="height:220px;border-bottom:1px solid #E7DCC8"><image-slot id="gg-pirkei-avos" src="gg-pirkei-avos.webp" placeholder="Pirkei Avos cover"></image-slot></div>
-        <div style="padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1">
-          <span style="align-self:flex-start;background:#F3E7CB;color:#8A6414;font-size:11.5px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px">Wisdom, illustrated</span>
-          <h3 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:23px;line-height:1.15">Pirkei Avos — Living Lessons</h3>
-          <p style="margin:0;font-size:15px;line-height:1.5;color:#7A6E5C;text-wrap:pretty">Pirkei Avos brought to life with visuals and stories — a wonderful way to learn it.</p>
-          <div style="margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between">
-            <span style="font-weight:800;font-size:16px">~$45</span>
-            <a href="https://www.judaicaplace.com/pirkei-avos-by-living-lessons-hardcover/9781935949350/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:#7D3038;color:#FFFDF7;padding:9px 18px;border-radius:999px;font-weight:800;font-size:13px;text-decoration:none" style-hover="background:#621F26">Get it ↗</a>
-          </div>
-        </div>
-      </div>
-      <div style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:16px;overflow:hidden;display:flex;flex-direction:column">
-        <div style="height:220px;border-bottom:1px solid #E7DCC8"><image-slot id="gg-my-parshah" src="https://seforimdeals.com/cdn/shop/files/my-parshah-846_800x.jpg?v=1766752322" placeholder="My Parshah cover"></image-slot></div>
-        <div style="padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1">
-          <span style="align-self:flex-start;background:#F3E7CB;color:#8A6414;font-size:11.5px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px">Parsha upgrade</span>
-          <h3 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:23px;line-height:1.15">My Parshah</h3>
-          <p style="margin:0;font-size:15px;line-height:1.5;color:#7A6E5C;text-wrap:pretty">Expands on the week’s parsha in a wonderful way — dvar Torah material, sorted.</p>
-          <div style="margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between">
-            <span style="font-weight:800;font-size:16px">$34.20</span>
-            <a href="https://seforimdeals.com/products/my-parshah" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:#7D3038;color:#FFFDF7;padding:9px 18px;border-radius:999px;font-weight:800;font-size:13px;text-decoration:none" style-hover="background:#621F26">Get it ↗</a>
-          </div>
-        </div>
-      </div>
-      <div style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:16px;overflow:hidden;display:flex;flex-direction:column">
-        <div style="height:220px;border-bottom:1px solid #E7DCC8"><image-slot id="gg-intro-talmud" src="https://seforimdeals.com/cdn/shop/files/artscroll-introduction-to-the-talmud-english-full-size-346_800x.jpg?v=1781055113" placeholder="Introduction to the Talmud cover"></image-slot></div>
-        <div style="padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1">
-          <span style="align-self:flex-start;background:#F3E7CB;color:#8A6414;font-size:11.5px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px">Know your daf</span>
-          <h3 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:23px;line-height:1.15">Introduction to the Talmud</h3>
-          <p style="margin:0;font-size:15px;line-height:1.5;color:#7A6E5C;text-wrap:pretty">ArtScroll’s history, personalities, and background behind every daf you learn.</p>
-          <div style="margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between">
-            <span style="font-weight:800;font-size:16px">$44</span>
-            <a href="https://www.artscroll.com/Books/9781422625453.html" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:#7D3038;color:#FFFDF7;padding:9px 18px;border-radius:999px;font-weight:800;font-size:13px;text-decoration:none" style-hover="background:#621F26">Get it ↗</a>
-          </div>
-        </div>
-      </div>
-      <div style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:16px;overflow:hidden;display:flex;flex-direction:column">
-        <div style="height:220px;border-bottom:1px solid #E7DCC8"><image-slot id="gg-illustrated-tehillim" src="https://moznaim.com/cdn/shop/products/ilteh_500x700.jpg?v=1606142348" placeholder="Illustrated Tehillim cover"></image-slot></div>
-        <div style="padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1">
-          <span style="align-self:flex-start;background:#F3E7CB;color:#8A6414;font-size:11.5px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px">Davening, beautified</span>
-          <h3 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:23px;line-height:1.15">The Illustrated Tehillim</h3>
-          <p style="margin:0;font-size:15px;line-height:1.5;color:#7A6E5C;text-wrap:pretty">Over 150 paintings, one for each theme — Tehillim you can see as well as say.</p>
-          <div style="margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between">
-            <span style="font-weight:800;font-size:16px">~$40</span>
-            <a href="https://www.artscroll.com/Books/9781422627334.html" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:#7D3038;color:#FFFDF7;padding:9px 18px;border-radius:999px;font-weight:800;font-size:13px;text-decoration:none" style-hover="background:#621F26">Get it ↗</a>
-          </div>
-        </div>
-      </div>
+      </sc-for>
     </div>
+    <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:1200px;margin:0 auto;padding:0 32px 48px;font-size:16px;color:#7A6E5C">Nothing here yet — new finds coming soon.</div>
+    </sc-if>
   </main>
   <footer style="border-top:1px solid #E7DCC8;margin-top:32px">
     <div style="max-width:1200px;margin:0 auto;padding:24px 32px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:#7A6E5C">
@@ -107,5 +67,21 @@ a{color:#7D3038}a:hover{color:#621F26}
   </footer>
 </div>
 </x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { products: null };
+  componentDidMount() {
+    fetch('products.json', { cache: 'no-store' })
+      .then(r => r.json())
+      .then(all => this.setState({ products: all.filter(p => p.category === 'Seforim') }))
+      .catch(() => this.setState({ products: [] }));
+  }
+  renderVals() {
+    const list = (this.state.products || []).map(p => ({ ...p, fit: p.fit || 'cover', hasBadge: !!p.badge }));
+    const n = list.length;
+    return { products: list, isEmpty: this.state.products !== null && n === 0, countLabel: this.state.products ? 'The list · ' + n + (n === 1 ? ' pick' : ' picks') : 'The list' };
+  }
+}
+</script>
 </body>
 </html>
