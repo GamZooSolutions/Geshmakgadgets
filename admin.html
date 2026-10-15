@@ -28,7 +28,10 @@ input,textarea,select,button{font-family:'Karla',sans-serif}
       <div style="display:flex;align-items:center;gap:18px;font-size:14px;font-weight:700">
         <a href="index.html" target="_blank" rel="noopener" style="color:#7D3038;text-decoration:none">View site ↗</a>
         <sc-if value="{{ connected }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;gap:10px;align-items:center">
+          <button onClick="{{ togglePwPanel }}" style="background:none;border:1px solid #E7DCC8;color:#2B2115;padding:7px 14px;border-radius:999px;font-weight:700;font-size:13px;cursor:pointer" style-hover="border-color:#7D3038;color:#7D3038">{{ pwBtnLabel }}</button>
           <button onClick="{{ disconnect }}" style="background:none;border:1px solid #E7DCC8;color:#7A6E5C;padding:7px 14px;border-radius:999px;font-weight:700;font-size:13px;cursor:pointer" style-hover="border-color:#7D3038;color:#7D3038">Sign out</button>
+          </div>
         </sc-if>
       </div>
     </div>
@@ -39,8 +42,21 @@ input,textarea,select,button{font-family:'Karla',sans-serif}
       <div style="width:100%;max-width:520px;display:flex;flex-direction:column;gap:22px">
         <div>
           <h1 style="margin:0 0 8px;font-family:'Instrument Serif',serif;font-weight:400;font-size:42px">Sign in</h1>
-          <p style="margin:0;font-size:16px;line-height:1.55;color:#7A6E5C;text-wrap:pretty">Paste your GitHub access key. It stays in this browser only, so you’ll only need to do this once per device.</p>
+          <p style="margin:0;font-size:16px;line-height:1.55;color:#7A6E5C;text-wrap:pretty">{{ signinBlurb }}</p>
         </div>
+        <sc-if value="{{ showPwForm }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px">
+          <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:800;letter-spacing:0.04em">Password
+            <input type="password" value="{{ pw }}" onChange="{{ onPw }}" onKeyDown="{{ onPwKey }}" autoFocus="{{ true }}" style="padding:11px 14px;border:1px solid #D9CCB4;border-radius:10px;background:#FFFFFF;font-size:15px;color:#2B2115;outline:none">
+          </label>
+          <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#F8E4E2;color:#8E2A2A;border-radius:10px;padding:10px 14px;font-size:14px;font-weight:600;line-height:1.45">{{ error }}</div>
+          </sc-if>
+          <button onClick="{{ loginPw }}" style="background:#7D3038;color:#FFFDF7;border:none;padding:13px 20px;border-radius:999px;font-weight:800;font-size:15px;cursor:pointer" style-hover="background:#621F26">{{ pwLoginLabel }}</button>
+          <button onClick="{{ useTokenInstead }}" style="background:none;border:none;color:#7A6E5C;font-weight:700;font-size:13.5px;cursor:pointer;text-decoration:underline">Use a GitHub access key instead</button>
+        </div>
+        </sc-if>
+        <sc-if value="{{ showTokenForm }}" hint-placeholder-val="{{ true }}">
         <div style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px">
           <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:800;letter-spacing:0.04em">GitHub access key
             <input type="password" value="{{ draftToken }}" onChange="{{ onDraftToken }}" placeholder="github_pat_…" style="padding:11px 14px;border:1px solid #D9CCB4;border-radius:10px;background:#FFFFFF;font-size:15px;color:#2B2115;outline:none">
@@ -60,6 +76,9 @@ input,textarea,select,button{font-family:'Karla',sans-serif}
             <div style="background:#F8E4E2;color:#8E2A2A;border-radius:10px;padding:10px 14px;font-size:14px;font-weight:600;line-height:1.45">{{ error }}</div>
           </sc-if>
           <button onClick="{{ connect }}" style="background:#7D3038;color:#FFFDF7;border:none;padding:13px 20px;border-radius:999px;font-weight:800;font-size:15px;cursor:pointer" style-hover="background:#621F26">{{ connectLabel }}</button>
+          <sc-if value="{{ hasVault }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ usePwInstead }}" style="background:none;border:none;color:#7A6E5C;font-weight:700;font-size:13.5px;cursor:pointer;text-decoration:underline">Sign in with your password instead</button>
+          </sc-if>
         </div>
         <div style="font-size:14.5px;line-height:1.6;color:#7A6E5C">
           <div style="font-weight:800;color:#2B2115;margin-bottom:6px">Don’t have a key yet? (one-time, about 2 minutes)</div>
@@ -71,11 +90,29 @@ input,textarea,select,button{font-family:'Karla',sans-serif}
             <li>Generate, copy the key, and paste it above</li>
           </ol>
         </div>
+        </sc-if>
       </div>
     </main>
   </sc-if>
 
   <sc-if value="{{ connected }}" hint-placeholder-val="{{ false }}">
+    <sc-if value="{{ showPwPanel }}" hint-placeholder-val="{{ false }}">
+      <div style="max-width:1240px;width:100%;box-sizing:border-box;margin:0 auto;padding:28px 28px 0">
+        <div style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:18px;padding:22px 26px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end">
+          <div style="flex:1 1 260px;display:flex;flex-direction:column;gap:4px">
+            <div style="font-family:'Instrument Serif',serif;font-size:26px">{{ pwPanelTitle }}</div>
+            <div style="font-size:14px;line-height:1.5;color:#7A6E5C;text-wrap:pretty">Then sign in on any device with just this password. Use at least 10 characters. A short phrase works well.</div>
+          </div>
+          <label style="flex:1 1 180px;display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:800">New password
+            <input type="password" value="{{ newPw }}" onChange="{{ onNewPw }}" style="padding:11px 14px;border:1px solid #D9CCB4;border-radius:10px;background:#FFFFFF;font-size:15px;color:#2B2115;outline:none;min-width:0">
+          </label>
+          <label style="flex:1 1 180px;display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:800">Type it again
+            <input type="password" value="{{ newPw2 }}" onChange="{{ onNewPw2 }}" style="padding:11px 14px;border:1px solid #D9CCB4;border-radius:10px;background:#FFFFFF;font-size:15px;color:#2B2115;outline:none;min-width:0">
+          </label>
+          <button onClick="{{ savePw }}" style="background:#7D3038;color:#FFFDF7;border:none;padding:12px 22px;border-radius:999px;font-weight:800;font-size:15px;cursor:pointer" style-hover="background:#621F26">{{ savePwLabel }}</button>
+        </div>
+      </div>
+    </sc-if>
     <main style="flex:1;max-width:1240px;width:100%;box-sizing:border-box;margin:0 auto;padding:36px 28px 64px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:32px;align-items:start">
 
       <section style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:16px">
@@ -201,10 +238,12 @@ class Component extends DCLogic {
   state = {
     cfg: null,
     draft: { token: '', owner: 'gamzoosolutions', repo: 'Geshmakgadgets', branch: 'main' },
-    products: null, sha: null, filter: 'All', form: this.blank(), busy: false, toast: null, error: ''
+    products: null, sha: null, filter: 'All', form: this.blank(), busy: false, toast: null, error: '',
+    vault: null, useToken: false, pw: '', showPwPanel: false, newPw: '', newPw2: ''
   };
 
   componentDidMount() {
+    fetch('admin-key.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).then(v => { if (v && v.data) this.setState({ vault: v }); }).catch(() => {});
     try {
       const c = JSON.parse(localStorage.getItem('gg-admin-cfg') || 'null');
       if (c && c.token) this.setState({ cfg: c, draft: c }, () => this.load());
@@ -351,6 +390,42 @@ class Component extends DCLogic {
     this.run(() => this.commitProducts(list, 'Reorder products'), 'Order updated.');
   }
 
+  u8b64(u8) { let s = ''; u8.forEach(b => { s += String.fromCharCode(b); }); return btoa(s); }
+  b64u8(b) { return Uint8Array.from(atob(b), c => c.charCodeAt(0)); }
+  async pwKey(pw, salt) {
+    const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+    return crypto.subtle.deriveKey({ name: 'PBKDF2', salt, iterations: 310000, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+  }
+  loginPw = async () => {
+    const pw = this.state.pw;
+    if (!pw) return this.setState({ error: 'Enter your password.' });
+    this.setState({ busy: true, error: '' });
+    try {
+      const v = this.state.vault;
+      const key = await this.pwKey(pw, this.b64u8(v.salt));
+      const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: this.b64u8(v.iv) }, key, this.b64u8(v.data));
+      const cfg = JSON.parse(new TextDecoder().decode(plain));
+      localStorage.setItem('gg-admin-cfg', JSON.stringify(cfg));
+      this.setState({ cfg, draft: cfg, pw: '', busy: false }, () => this.load());
+    } catch (e) { this.setState({ busy: false, error: 'Wrong password. Please try again.' }); }
+  };
+  savePw = () => {
+    const { newPw, newPw2 } = this.state;
+    if (newPw.length < 10) return this.toast('Use at least 10 characters.', 'err');
+    if (newPw !== newPw2) return this.toast('The two passwords don’t match.', 'err');
+    this.run(async () => {
+      const salt = crypto.getRandomValues(new Uint8Array(16));
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const key = await this.pwKey(newPw, salt);
+      const ct = new Uint8Array(await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, new TextEncoder().encode(JSON.stringify(this.state.cfg))));
+      const vault = { v: 1, salt: this.u8b64(salt), iv: this.u8b64(iv), data: this.u8b64(ct) };
+      let sha;
+      try { sha = (await this.gh('contents/admin-key.json?ref=' + encodeURIComponent(this.state.cfg.branch))).sha; } catch (e) {}
+      await this.gh('contents/admin-key.json', { method: 'PUT', body: JSON.stringify({ message: 'Update admin password', content: this.enc(JSON.stringify(vault)), branch: this.state.cfg.branch, ...(sha ? { sha } : {}) }) });
+      this.setState({ vault, newPw: '', newPw2: '', showPwPanel: false });
+    }, 'Password saved.');
+  };
+
   renderVals() {
     const s = this.state, f = s.form;
     const all = s.products || [];
@@ -378,6 +453,15 @@ class Component extends DCLogic {
     const connected = !!(s.cfg && s.products);
     return {
       connected, notConnected: !connected,
+      hasVault: !!s.vault, showPwForm: !!s.vault && !s.useToken, showTokenForm: !s.vault || s.useToken,
+      signinBlurb: s.vault && !s.useToken ? 'Enter your admin password.' : 'Paste your GitHub access key. It stays in this browser only. After signing in, you can set a password for other devices.',
+      pw: s.pw, onPw: e => this.setState({ pw: e.target.value, error: '' }), onPwKey: e => { if (e.key === 'Enter') this.loginPw(); },
+      loginPw: this.loginPw, pwLoginLabel: s.busy ? 'Signing in…' : 'Sign in',
+      useTokenInstead: () => this.setState({ useToken: true, error: '' }), usePwInstead: () => this.setState({ useToken: false, error: '' }),
+      showPwPanel: s.showPwPanel, togglePwPanel: () => this.setState(st => ({ showPwPanel: !st.showPwPanel })),
+      pwBtnLabel: s.vault ? 'Change password' : 'Set a password', pwPanelTitle: s.vault ? 'Change your admin password' : 'Set an admin password',
+      newPw: s.newPw, newPw2: s.newPw2, onNewPw: e => this.setState({ newPw: e.target.value }), onNewPw2: e => this.setState({ newPw2: e.target.value }),
+      savePw: this.savePw, savePwLabel: s.busy ? 'Saving…' : 'Save password',
       draftToken: s.draft.token, draftOwner: s.draft.owner, draftRepo: s.draft.repo, draftBranch: s.draft.branch,
       onDraftToken: setD('token'), onDraftOwner: setD('owner'), onDraftRepo: setD('repo'), onDraftBranch: setD('branch'),
       hasError: !!s.error, error: s.error,
