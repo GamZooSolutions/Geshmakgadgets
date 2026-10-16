@@ -77,14 +77,32 @@ a{color:#7D3038}a:hover{color:#621F26}
         <span style="margin-top:auto;padding-top:8px;color:#7D3038;font-weight:800;font-size:14px">Browse →</span>
       </a>
     </section>
-    <section id="about" style="max-width:860px;margin:0 auto;padding:48px 32px">
-      <div style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:20px;padding:40px 44px;display:grid;grid-template-columns:1fr 1.4fr;gap:36px;align-items:center">
+    <section id="about" style="max-width:1200px;margin:0 auto;padding:48px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:24px;align-items:stretch">
+      <div style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:20px;padding:36px 36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px;align-items:center">
         <div>
           <div style="font-family:'Instrument Serif',serif;font-size:38px;line-height:1.1">gesh·mak</div>
           <div style="font-size:14px;color:#7A6E5C;font-style:italic;margin-top:6px">adjective · Yiddish · געשמאַק</div>
           <div style="font-size:15.5px;margin-top:12px;line-height:1.5">Delicious. Delightful. Deeply satisfying — like kugel straight off the platta.</div>
         </div>
         <p style="margin:0;font-size:15.5px;line-height:1.65;color:#7A6E5C;text-wrap:pretty">Some things just make Jewish life <em>work better</em>: the shtender that folds into your pocket, the cover that keeps the cholent hot, the lock that keeps the wine kosher. We collect them here, one geshmak find at a time. Every button links straight to the seller — we do the picking, they do the selling.</p>
+      </div>
+      <div id="suggest" style="background:#FFFDF7;border:1px solid #E7DCC8;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:14px">
+        <div style="font-family:'Instrument Serif',serif;font-size:32px;line-height:1.1;text-wrap:balance">Have a product you think is <span style="font-style:italic;color:#7D3038">geshmak</span>?</div>
+        <div style="font-size:15px;color:#7A6E5C;line-height:1.5">Drop the link below. We read every one.</div>
+        <sc-if value="{{ sugNotDone }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <input value="{{ sugLink }}" onChange="{{ onSugLink }}" placeholder="Product link (https://…)" style="padding:11px 14px;border:1px solid #D9CCB4;border-radius:10px;background:#FFFFFF;font-family:'Karla',sans-serif;font-size:15px;color:#2B2115;outline:none;min-width:0">
+            <textarea value="{{ sugMsg }}" onChange="{{ onSugMsg }}" rows="3" placeholder="What makes it geshmak? (optional)" style="padding:11px 14px;border:1px solid #D9CCB4;border-radius:10px;background:#FFFFFF;font-family:'Karla',sans-serif;font-size:15px;color:#2B2115;outline:none;min-width:0;line-height:1.45;resize:vertical"></textarea>
+            <input type="email" value="{{ sugEmail }}" onChange="{{ onSugEmail }}" placeholder="Your email (optional, if you’d like a reply)" style="padding:11px 14px;border:1px solid #D9CCB4;border-radius:10px;background:#FFFFFF;font-family:'Karla',sans-serif;font-size:15px;color:#2B2115;outline:none;min-width:0">
+            <sc-if value="{{ hasSugErr }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:14px;font-weight:700;color:#8E2A2A">{{ sugErr }}</div>
+            </sc-if>
+            <button onClick="{{ onSugSend }}" style="align-self:flex-start;background:#7D3038;color:#FFFDF7;border:none;padding:12px 26px;border-radius:999px;font-family:'Karla',sans-serif;font-weight:800;font-size:15px;cursor:pointer" style-hover="background:#621F26">{{ sugBtn }}</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ sugDone }}" hint-placeholder-val="{{ false }}">
+          <div style="border:1px solid #B9862F;border-radius:14px;padding:16px 18px;font-weight:700;font-size:15px;line-height:1.5;color:#2B2115">Got it, a sheynem dank! We’ll take a look.</div>
+        </sc-if>
       </div>
     </section>
     <sc-if value="{{ showSignup }}" hint-placeholder-val="{{ true }}">
@@ -119,7 +137,7 @@ a{color:#7D3038}a:hover{color:#621F26}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;comingSoon&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Header&quot;},&quot;showSignup&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
 class Component extends DCLogic {
-  state = { email: '', done: false, counts: null };
+  state = { email: '', done: false, counts: null, sugLink: '', sugMsg: '', sugEmail: '', sugDone: false, sugSending: false, sugErr: '' };
   componentDidMount() {
     fetch('products.json', { cache: 'no-store' }).then(r => r.json()).then(all => {
       const counts = {}; all.forEach(p => { counts[p.category] = (counts[p.category] || 0) + 1; });
@@ -139,6 +157,24 @@ class Component extends DCLogic {
       onEmail: (e) => this.setState({ email: e.target.value, emailErr: '' }),
       hasEmailErr: !!this.state.emailErr, emailErr: this.state.emailErr || '',
       btnLabel: this.state.sending ? 'Sending…' : 'Keep me posted',
+      sugLink: this.state.sugLink, sugMsg: this.state.sugMsg, sugEmail: this.state.sugEmail,
+      onSugLink: e => this.setState({ sugLink: e.target.value, sugErr: '' }),
+      onSugMsg: e => this.setState({ sugMsg: e.target.value, sugErr: '' }),
+      onSugEmail: e => this.setState({ sugEmail: e.target.value, sugErr: '' }),
+      sugDone: this.state.sugDone, sugNotDone: !this.state.sugDone,
+      hasSugErr: !!this.state.sugErr, sugErr: this.state.sugErr,
+      sugBtn: this.state.sugSending ? 'Sending…' : 'Send',
+      onSugSend: () => {
+        const link = this.state.sugLink.trim(), message = this.state.sugMsg.trim(), from = this.state.sugEmail.trim();
+        if (this.state.sugSending) return;
+        if (!link && !message) return this.setState({ sugErr: 'Please add a link or a message.' });
+        if (from && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(from)) return this.setState({ sugErr: 'That email doesn’t look right.' });
+        this.setState({ sugSending: true });
+        fetch('https://script.google.com/macros/s/AKfycbzIh5lYRt4OUbCeC4Rw0qzdtg-RtZoFnFAne8q17GX7BBh0DNGffEc6hMb1Up3bJpQxqQ/exec', {
+          method: 'POST', mode: 'no-cors', body: new URLSearchParams({ type: 'suggestion', link, message, email: from })
+        }).then(() => this.setState({ sugDone: true, sugSending: false }))
+          .catch(() => this.setState({ sugSending: false, sugErr: 'Something went wrong. Please try again.' }));
+      },
       onSubmit: () => {
         const email = this.state.email.trim();
         if (this.state.sending) return;
